@@ -1,5 +1,6 @@
 /* $begin show-bytes */
 #include <stdio.h>
+#include <string.h>
 /* $begin show-bytes */
 
 typedef unsigned char *byte_pointer;
@@ -10,6 +11,11 @@ void show_bytes(byte_pointer start, size_t len)
     for (i = 0; i < len; i++)
         printf(" %.2x", start[i]); //line:data:show_bytes_printf
     printf("\n");
+}
+
+void show_chars(const char *x)
+{
+    show_bytes((byte_pointer)x, strlen(x));
 }
 
 void show_int(int x)
@@ -34,6 +40,8 @@ void test_show_bytes(int val)
     int ival = val;
     float fval = (float)ival;
     int *pval = &ival;
+    const char *s = "abcdef";
+    show_chars(s);
     show_int(ival);
     show_float(fval);
     show_pointer(pval);
