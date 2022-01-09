@@ -54,6 +54,14 @@ void test_show_bytes(int val)
     show_bytes((byte_pointer)&x, sizeof(short));          //39 30
     show_bytes((byte_pointer)&mx, sizeof(short));         //c7 cf
     show_bytes((byte_pointer)&y, sizeof(unsigned short)); //c7 cf
+
+    short int v = -12345;
+    unsigned short uv = (unsigned short)v;
+    printf("v = %d, uv = %u\n", v, uv);
+
+    unsigned u = 4294967295u; /*UMax*/
+    int tu = (int)u;
+    printf("u = %u, tu = %d\n", u, tu);
 }
 /* $end test-show-bytes */
 
