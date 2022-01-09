@@ -40,11 +40,20 @@ void test_show_bytes(int val)
     int ival = val;
     float fval = (float)ival;
     int *pval = &ival;
-    const char *s = "abcdef";
-    show_chars(s);
+
     show_int(ival);
     show_float(fval);
     show_pointer(pval);
+
+    const char *s = "abcdef";
+    show_chars(s);
+
+    short x = 12345;
+    short mx = -x;
+    unsigned short y = 53191;
+    show_bytes((byte_pointer)&x, sizeof(short));          //39 30
+    show_bytes((byte_pointer)&mx, sizeof(short));         //c7 cf
+    show_bytes((byte_pointer)&y, sizeof(unsigned short)); //c7 cf
 }
 /* $end test-show-bytes */
 
