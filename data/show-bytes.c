@@ -70,12 +70,16 @@ void test_show_bytes(int val)
 
     printf("sx = %d:\t", sx);
     show_bytes((byte_pointer)&sx, sizeof(short));
-    printf("usx = %d:\t", usx);
+    printf("usx = %u:\t", usx);
     show_bytes((byte_pointer)&usx, sizeof(unsigned short));
     printf("ix = %d:\t", ix);
     show_bytes((byte_pointer)&ix, sizeof(int));
-    printf("uix = %d:\t", uix);
+    printf("uix = %u:\t", uix);
     show_bytes((byte_pointer)&uix, sizeof(unsigned));
+
+    unsigned uy = sx;
+    printf("uy = %u:\t", uy);
+    show_bytes((byte_pointer)&uy, sizeof(unsigned));
 }
 /* $end test-show-bytes */
 
