@@ -62,6 +62,20 @@ void test_show_bytes(int val)
     unsigned u = 4294967295u; /*UMax*/
     int tu = (int)u;
     printf("u = %u, tu = %d\n", u, tu);
+
+    short sx = -12345;
+    unsigned short usx = sx;
+    int ix = sx;
+    unsigned uix = usx;
+
+    printf("sx = %d:\t", sx);
+    show_bytes((byte_pointer)&sx, sizeof(short));
+    printf("usx = %d:\t", usx);
+    show_bytes((byte_pointer)&usx, sizeof(unsigned short));
+    printf("ix = %d:\t", ix);
+    show_bytes((byte_pointer)&ix, sizeof(int));
+    printf("uix = %d:\t", uix);
+    show_bytes((byte_pointer)&uix, sizeof(unsigned));
 }
 /* $end test-show-bytes */
 
