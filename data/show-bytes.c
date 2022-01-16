@@ -15,14 +15,29 @@ void show_bytes(byte_pointer start, size_t len)
     printf("\n");
 }
 
+void show_short(short x)
+{
+    show_bytes((byte_pointer)&x, sizeof(short));
+}
+
 void show_int(int x)
 {
     show_bytes((byte_pointer)&x, sizeof(int)); //line:data:show_bytes_amp1
 }
 
+void show_long(long x)
+{
+    show_bytes((byte_pointer)&x, sizeof(long));
+}
+
 void show_float(float x)
 {
     show_bytes((byte_pointer)&x, sizeof(float)); //line:data:show_bytes_amp2
+}
+
+void show_double(double x)
+{
+    show_bytes((byte_pointer)&x, sizeof(double));
 }
 
 void show_pointer(void *x)
@@ -34,11 +49,17 @@ void show_pointer(void *x)
 /* $begin test-show-bytes */
 void test_show_bytes(int val)
 {
+    short sval = (short)val;
     int ival = val;
+    long lval = val;
     float fval = (float)ival;
+    double dval = (double)ival;
     int *pval = &ival;
+    show_short(sval);
     show_int(ival);
+    show_long(lval);
     show_float(fval);
+    show_double(dval);
     show_pointer(pval);
 }
 /* $end test-show-bytes */
