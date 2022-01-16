@@ -1,5 +1,7 @@
 /* $begin show-bytes */
 #include <stdio.h>
+/* $end show-bytes */
+#include <stdlib.h>
 #include <string.h>
 /* $begin show-bytes */
 
@@ -11,11 +13,6 @@ void show_bytes(byte_pointer start, size_t len)
     for (i = 0; i < len; i++)
         printf(" %.2x", start[i]); //line:data:show_bytes_printf
     printf("\n");
-}
-
-void show_chars(const char *x)
-{
-    show_bytes((byte_pointer)x, strlen(x));
 }
 
 void show_int(int x)
@@ -40,54 +37,103 @@ void test_show_bytes(int val)
     int ival = val;
     float fval = (float)ival;
     int *pval = &ival;
-
     show_int(ival);
     show_float(fval);
     show_pointer(pval);
-
-    const char *s = "abcdef";
-    show_chars(s);
-
-    short x = 12345;
-    short mx = -x;
-    unsigned short y = 53191;
-    show_bytes((byte_pointer)&x, sizeof(short));          //39 30
-    show_bytes((byte_pointer)&mx, sizeof(short));         //c7 cf
-    show_bytes((byte_pointer)&y, sizeof(unsigned short)); //c7 cf
-
-    short int v = -12345;
-    unsigned short uv = (unsigned short)v;
-    printf("v = %d, uv = %u\n", v, uv);
-
-    unsigned u = 4294967295u; /*UMax*/
-    int tu = (int)u;
-    printf("u = %u, tu = %d\n", u, tu);
-
-    short sx = -12345;
-    unsigned short usx = sx;
-    int ix = sx;
-    unsigned uix = usx;
-
-    printf("sx = %d:\t", sx);
-    show_bytes((byte_pointer)&sx, sizeof(short));
-    printf("usx = %u:\t", usx);
-    show_bytes((byte_pointer)&usx, sizeof(unsigned short));
-    printf("ix = %d:\t", ix);
-    show_bytes((byte_pointer)&ix, sizeof(int));
-    printf("uix = %u:\t", uix);
-    show_bytes((byte_pointer)&uix, sizeof(unsigned));
-
-    unsigned uy = sx;
-    printf("uy = %u:\t", uy);
-    show_bytes((byte_pointer)&uy, sizeof(unsigned));
 }
 /* $end test-show-bytes */
+
+void simple_show_a()
+{
+    /* $begin simple-show-a */
+    int val = 0x87654321;
+    byte_pointer valp = (byte_pointer)&val;
+    show_bytes(valp, 1); /* A. */
+    show_bytes(valp, 2); /* B. */
+    show_bytes(valp, 3); /* C. */
+    /* $end simple-show-a */
+}
+
+void simple_show_b()
+{
+    /* $begin simple-show-b */
+    int val = 0x12345678;
+    byte_pointer valp = (byte_pointer)&val;
+    show_bytes(valp, 1); /* A. */
+    show_bytes(valp, 2); /* B. */
+    show_bytes(valp, 3); /* C. */
+    /* $end simple-show-b */
+}
+
+void float_eg()
+{
+    int x = 3490593;
+    float f = (float)x;
+    printf("For x = %d\n", x);
+    show_int(x);
+    show_float(f);
+
+    x = 3510593;
+    f = (float)x;
+    printf("For x = %d\n", x);
+    show_int(x);
+    show_float(f);
+}
+
+void string_ueg()
+{
+    /* $begin show-ustring */
+    const char *s = "ABCDEF";
+    show_bytes((byte_pointer)s, strlen(s));
+    /* $end show-ustring */
+}
+
+void string_leg()
+{
+    /* $begin show-lstring */
+    const char *s = "abcdef";
+    show_bytes((byte_pointer)s, strlen(s));
+    /* $end show-lstring */
+}
+
+void show_twocomp()
+{
+    /* $begin show-twocomp */
+    short x = 12345;
+    short mx = -x;
+
+    show_bytes((byte_pointer)&x, sizeof(short));
+    show_bytes((byte_pointer)&mx, sizeof(short));
+    /* $end show-twocomp */
+}
 
 int main(int argc, char *argv[])
 {
     int val = 12345;
-    printf("calling test_show_bytes\n");
-    test_show_bytes(val);
 
+    if (argc > 1)
+    {
+        if (argc > 1)
+        {
+            val = strtol(argv[1], NULL, 0);
+        }
+        printf("calling test_show_bytes\n");
+        test_show_bytes(val);
+    }
+    else
+    {
+        printf("calling show_twocomp\n");
+        show_twocomp();
+        printf("Calling simple_show_a\n");
+        simple_show_a();
+        printf("Calling simple_show_b\n");
+        simple_show_b();
+        printf("Calling float_eg\n");
+        float_eg();
+        printf("Calling string_ueg\n");
+        string_ueg();
+        printf("Calling string_leg\n");
+        string_leg();
+    }
     return 0;
 }
