@@ -11,6 +11,15 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
+int saturating_add(int x, int y)
+{
+    int w = sizeof(int) << 3;
+    int ans = x + y;
+    int is_overflow = ((x ^ ans) & (y ^ ans)) >> (w - 1);
+    int x_sign = x >> (w - 1);
+    return (~is_overflow & (x + y)) + (is_overflow & ((~x_sign & INT_MAX) + (x_sign & INT_MIN)));
+}
+
 // 参考 https://blog.csdn.net/KQZXCMH/article/details/11649115
 // 修正了李秋豪的错误
 
@@ -26,12 +35,3 @@ int main(int argc, char const *argv[])
 // }
 
 // 当x, y同号且没有溢出时, 返回值为0
-
-int saturating_add(int x, int y)
-{
-    int w = sizeof(int) << 3;
-    int ans = x + y;
-    int is_overflow = ((x ^ ans) & (y ^ ans)) >> (w - 1);
-    int x_sign = x >> (w - 1);
-    return (~is_overflow & (x + y)) + (is_overflow & ((~x_sign & INT_MAX) + (x_sign & INT_MIN)));
-}
