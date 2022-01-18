@@ -31,7 +31,7 @@ int saturating_add(int x, int y)
 {
     int w = sizeof(int) << 3;
     int ans = x + y;
-    int isOverflow = ((x ^ ans) & (y ^ ans)) >> (w - 1);
+    int is_overflow = ((x ^ ans) & (y ^ ans)) >> (w - 1);
     int x_sign = x >> (w - 1);
-    return (~isOverflow & (x + y)) + (isOverflow & ((~x_sign & INT_MAX) + (x_sign & INT_MIN)));
+    return (~is_overflow & (x + y)) + (is_overflow & ((~x_sign & INT_MAX) + (x_sign & INT_MIN)));
 }
