@@ -11,7 +11,7 @@ docker exec $CONTAINER_ID yum -y update
 
 docker exec $CONTAINER_ID yum install -y sudo make automake gcc gcc-c++ kernel-devel gdb glibc-devel.i686
 
-echo 实验环境完成🐳🚀
+echo 实验环境搭建完成🐳🚀
 echo 请进入📂/csapp完成实验
 echo -e "执行 \033[32mbash check.sh\033[0m 可以验证"
 docker exec -it $CONTAINER_ID /bin/bash
